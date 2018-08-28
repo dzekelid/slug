@@ -7,8 +7,8 @@ image: http://kinlane-productions.s3.amazonaws.com/screen-capture-api/19810-bitb
 x-kinRank: "8"
 x-alexaRank: "901"
 tags: Slug
-created: "2018-08-26"
-modified: "2018-08-26"
+created: "2018-08-28"
+modified: "2018-08-28"
 url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/apis.md
 specificationVersion: "0.14"
 apis:
@@ -54,6 +54,77 @@ apis:
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slug-parameters-postman.md
   - type: x-openapi-spec
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slug-parameters-openapi.md
+- name: Bitbucket - Add Repositories Username Repo Slug
+  x-api-slug: repositoriesusernamerepo-slug-post
+  description: |-
+    Creates a new repository.
+
+    Note: In order to set the project for the newly created repository,
+    pass in either the project key or the project UUID as part of the
+    request body as shown in the examples below:
+
+    ```
+    $ curl -X POST -H "Content-Type: application/json" -d '{
+        "scm": "git",
+        "project": {
+            "key": "MARS"
+        }
+    }' https://api.bitbucket.org/2.0/repositories/teamsinspace/hablanding
+    ```
+
+    or
+
+    ```
+    $ curl -X POST -H "Content-Type: application/json" -d '{
+        "scm": "git",
+        "project": {
+            "key": "{ba516952-992a-4c2d-acbd-17d502922f96}"
+        }
+    }' https://api.bitbucket.org/2.0/repositories/teamsinspace/hablanding
+    ```
+
+    The project must only be assigned for repositories belonging to a team.
+    If the repository owner is a team and the project is not provided, the
+    repository is automatically assigned to the oldest project in the team.
+
+    Note: In the examples above, the username `teamsinspace`,
+    and/or the repository name `hablanding` can be replaced by UUIDs.
+  image: http://kinlane-productions.s3.amazonaws.com/screen-capture-api/19810-bitbucket.jpg
+  humanURL: http://bitbucket.org
+  baseURL: https://api.bitbucket.org//2.0
+  tags: Imports, Stack Network, Developers, Code, Technology, SaaS, Enterprise, Profiles,
+    Relative Data, Service API
+  properties:
+  - type: x-openapi-spec
+    url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slug-post-openapi.md
+- name: Bitbucket - Update Repositories Username Repo Slug
+  x-api-slug: repositoriesusernamerepo-slug-put
+  description: |-
+    Since this endpoint can be used to both update and to create a
+    repository, the request body depends on the intent.
+
+    ### Creation
+
+    See the POST documentation for the repository endpoint for an example
+    of the request body.
+
+    ### Update
+
+    Note: Changing the `name` of the repository will cause the location to
+    be changed. This is because the URL of the repo is derived from the
+    name (a process called slugification). In such a scenario, it is
+    possible for the request to fail if the newly created slug conflicts
+    with an existing repository's slug. But if there is no conflict,
+    the new location will be returned in the `Location` header of the
+    response.
+  image: http://kinlane-productions.s3.amazonaws.com/screen-capture-api/19810-bitbucket.jpg
+  humanURL: http://bitbucket.org
+  baseURL: https://api.bitbucket.org//2.0
+  tags: Imports, Stack Network, Developers, Code, Technology, SaaS, Enterprise, Profiles,
+    Relative Data, Service API
+  properties:
+  - type: x-openapi-spec
+    url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slug-put-openapi.md
 - name: Bitbucket - Get Repositories Username Repo Slug Branch Restrictions
   x-api-slug: repositoriesusernamerepo-slugbranchrestrictions-get
   description: |-
@@ -82,6 +153,43 @@ apis:
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugbranchrestrictions-parameters-postman.md
   - type: x-openapi-spec
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugbranchrestrictions-parameters-openapi.md
+- name: Bitbucket - Add Repositories Username Repo Slug Branch Restrictions
+  x-api-slug: repositoriesusernamerepo-slugbranchrestrictions-post
+  description: |-
+    Creates a new branch restriction rule for a repository.
+
+    `kind` describes what will be restricted. Allowed values are: `push`,
+    `force`, `delete`, and `restrict_merges`.
+
+    Different kinds of branch restrictions have different requirements:
+
+    * `push` and `restrict_merges` require `users` and `groups` to be
+      specified. Empty lists are allowed, in which case permission is
+      denied for everybody.
+    * `force` can not be specified in a Mercurial repository.
+
+    `pattern` is used to determine which branches will be restricted.
+
+    A `'*'` in `pattern` will expand to match zero or more characters, and
+    every other character matches itself. For example, `'foo*'` will match
+    `'foo'` and `'foobar'`, but not `'barfoo'`. `'*'` will match all
+    branches.
+
+    `users` and `groups` are lists of user names and group names.
+
+    `kind` and `pattern` must be unique within a repository; adding new
+    users or groups to an existing restriction should be done via `PUT`.
+
+    Note that branch restrictions with overlapping patterns are allowed,
+    but the resulting behavior may be surprising.
+  image: http://kinlane-productions.s3.amazonaws.com/screen-capture-api/19810-bitbucket.jpg
+  humanURL: http://bitbucket.org
+  baseURL: https://api.bitbucket.org//2.0
+  tags: Imports, Stack Network, Developers, Code, Technology, SaaS, Enterprise, Profiles,
+    Relative Data, Service API
+  properties:
+  - type: x-openapi-spec
+    url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugbranchrestrictions-post-openapi.md
 - name: Bitbucket - Delete Repositories Username Repo Slug Branch Restrictions
   x-api-slug: repositoriesusernamerepo-slugbranchrestrictionsid-delete
   description: Delete repositories username repo slug branch restrictions
@@ -121,6 +229,22 @@ apis:
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugbranchrestrictionsid-parameters-postman.md
   - type: x-openapi-spec
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugbranchrestrictionsid-parameters-openapi.md
+- name: Bitbucket - Update Repositories Username Repo Slug Branch Restrictions
+  x-api-slug: repositoriesusernamerepo-slugbranchrestrictionsid-put
+  description: |-
+    Updates an existing branch restriction rule.
+
+    Fields not present in the request body are ignored.
+
+    See [`POST`](../../branch-restrictions#post) for details.
+  image: http://kinlane-productions.s3.amazonaws.com/screen-capture-api/19810-bitbucket.jpg
+  humanURL: http://bitbucket.org
+  baseURL: https://api.bitbucket.org//2.0
+  tags: Imports, Stack Network, Developers, Code, Technology, SaaS, Enterprise, Profiles,
+    Relative Data, Service API
+  properties:
+  - type: x-openapi-spec
+    url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugbranchrestrictionsid-put-openapi.md
 - name: Bitbucket - Delete Repositories Username Repo Slug Commit Node Approve
   x-api-slug: repositoriesusernamerepo-slugcommitnodeapprove-delete
   description: |-
@@ -267,6 +391,31 @@ apis:
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugcommitnodestatusesbuildkey-parameters-postman.md
   - type: x-openapi-spec
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugcommitnodestatusesbuildkey-parameters-openapi.md
+- name: Bitbucket - Update Repositories Username Repo Slug Commit Node Statuses Build
+    Key
+  x-api-slug: repositoriesusernamerepo-slugcommitnodestatusesbuildkey-put
+  description: |-
+    Used to update the current status of a build status object on the
+    specific commit.
+
+    This operation can also be used to change other properties of the
+    build status:
+
+    * `state`
+    * `name`
+    * `description`
+    * `url`
+    * `refname`
+
+    The `key` cannot be changed.
+  image: http://kinlane-productions.s3.amazonaws.com/screen-capture-api/19810-bitbucket.jpg
+  humanURL: http://bitbucket.org
+  baseURL: https://api.bitbucket.org//2.0
+  tags: Imports, Stack Network, Developers, Code, Technology, SaaS, Enterprise, Profiles,
+    Relative Data, Service API
+  properties:
+  - type: x-openapi-spec
+    url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugcommitnodestatusesbuildkey-put-openapi.md
 - name: Bitbucket - Get Repositories Username Repo Slug Commit Revision
   x-api-slug: repositoriesusernamerepo-slugcommitrevision-get
   description: Get repositories username repo slug commit revision
@@ -991,6 +1140,24 @@ apis:
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugissues-parameters-postman.md
   - type: x-openapi-spec
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugissues-parameters-openapi.md
+- name: Bitbucket - Add Repositories Username Repo Slug Issues
+  x-api-slug: repositoriesusernamerepo-slugissues-post
+  description: |-
+    Creates a new issue.
+
+    This call requires authentication. Private repositories or private
+    issue trackers require the caller to authenticate with an account that
+    has appropriate authorisation.
+
+    The authenticated user is used for the issue's `reporter` field.
+  image: http://kinlane-productions.s3.amazonaws.com/screen-capture-api/19810-bitbucket.jpg
+  humanURL: http://bitbucket.org
+  baseURL: https://api.bitbucket.org//2.0
+  tags: Imports, Stack Network, Developers, Code, Technology, SaaS, Enterprise, Profiles,
+    Relative Data, Service API
+  properties:
+  - type: x-openapi-spec
+    url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugissues-post-openapi.md
 - name: Bitbucket - Delete Repositories Username Repo Slug Issues Issue
   x-api-slug: repositoriesusernamerepo-slugissuesissue-id-delete
   description: |-
@@ -1422,6 +1589,62 @@ apis:
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpipelines-get-postman.md
   - type: x-openapi-spec
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpipelines-get-openapi.md
+- name: Bitbucket - Add Repositories Username Repo Slug Pipelines
+  x-api-slug: repositoriesusernamerepo-slugpipelines-post
+  description: "Endpoint to create and initiate a pipeline. \nThere are a couple of
+    different options to initiate a pipeline, where the payload of the request will
+    determine which type of pipeline will be instantiated.\n# Trigger a Pipeline for
+    a branch or tag\nOne way to trigger pipelines is by specifying the reference for
+    which you want to trigger a pipeline (e.g. a branch or tag). \nThe specified reference
+    will be used to determine which pipeline definition from the `bitbucket-pipelines.yml`
+    file will be applied to initiate the pipeline. The pipeline will then do a clone
+    of the repository and checkout the latest revision of the specified reference.\n\n###
+    Example\n\n```\n$ curl -X POST -is -u username:password \\\n  -H 'Content-Type:
+    application/json' \\\n https://api.bitbucket.org/2.0/repositories/jeroendr/meat-demo2/pipelines/
+    \\\n  -d '\n  {\n    \"target\": {\n      \"ref_type\": \"branch\", \n      \"type\":
+    \"pipeline_ref_target\", \n      \"ref_name\": \"master\"\n    }\n  }'\n```\n#
+    Trigger a Pipeline for a commit on a branch or tag\nYou can initiate a pipeline
+    for a specific commit and in the context of a specified reference (e.g. a branch,
+    tag or bookmark).\nThe specified reference will be used to determine which pipeline
+    definition from the bitbucket-pipelines.yml file will be applied to initiate the
+    pipeline. The pipeline will clone the repository and then do a checkout the specified
+    reference. \n\nThe following reference types are supported:\n\n* `branch` \n*
+    `named_branch`\n* `bookmark` \n * `tag`\n\n### Example\n\n```\n$ curl -X POST
+    -is -u username:password \\\n  -H 'Content-Type: application/json' \\\n  https://api.bitbucket.org/2.0/repositories/jeroendr/meat-demo2/pipelines/
+    \\\n  -d '\n  {\n    \"target\": {\n      \"commit\": {\n        \"type\": \"commit\",
+    \n        \"hash\": \"ce5b7431602f7cbba007062eeb55225c6e18e956\"\n      }, \n
+    \     \"ref_type\": \"branch\", \n      \"type\": \"pipeline_ref_target\", \n
+    \     \"ref_name\": \"master\"\n    }\n  }'\n```\n# Trigger a specific pipeline
+    definition for a commit\nYou can trigger a specific pipeline that is defined in
+    your `bitbucket-pipelines.yml` file for a specific commit. \nIn addition to the
+    commit revision, you specify the type and pattern of the selector that identifies
+    the pipeline definition. The resulting pipeline will then clone the repository
+    and checkout the specified revision.\n\n### Example\n\n```\n$ curl -X POST -is
+    -u username:password \\\n  -H 'Content-Type: application/json' \\\n https://api.bitbucket.org/2.0/repositories/jeroendr/meat-demo2/pipelines/
+    \\\n -d '\n  {\n     \"target\": {\n      \"commit\": {\n         \"hash\":\"a3c4e02c9a3755eccdc3764e6ea13facdf30f923\",\n
+    \        \"type\":\"commit\"\n       },\n        \"selector\": {\n           \"type\":\"custom\",\n
+    \             \"pattern\":\"Deploy to production\"\n          },\n        \"type\":\"pipeline_commit_target\"\n
+    \  }\n  }'\n```\n# Trigger a specific pipeline definition for a commit on a branch
+    or tag\nYou can trigger a specific pipeline that is defined in your `bitbucket-pipelines.yml`
+    file for a specific commit in the context of a specified reference. \nIn addition
+    to the commit revision, you specify the type and pattern of the selector that
+    identifies the pipeline definition, as well as the reference information. The
+    resulting pipeline will then clone the repository a checkout the specified reference.\n\n###
+    Example\n\n```\n$ curl -X POST -is -u username:password \\\n  -H 'Content-Type:
+    application/json' \\\n https://api.bitbucket.org/2.0/repositories/jeroendr/meat-demo2/pipelines/
+    \\\n -d '\n  {\n     \"target\": {\n      \"commit\": {\n         \"hash\":\"a3c4e02c9a3755eccdc3764e6ea13facdf30f923\",\n
+    \        \"type\":\"commit\"\n       },\n       \"selector\": {\n          \"type\":
+    \"custom\",\n          \"pattern\": \"Deploy to production\"\n       },\n       \"type\":
+    \"pipeline_ref_target\",\n       \"ref_name\": \"master\",\n       \"ref_type\":
+    \"branch\"\n     }\n  }'\n```"
+  image: http://kinlane-productions.s3.amazonaws.com/screen-capture-api/19810-bitbucket.jpg
+  humanURL: http://bitbucket.org
+  baseURL: https://api.bitbucket.org//2.0
+  tags: Imports, Stack Network, Developers, Code, Technology, SaaS, Enterprise, Profiles,
+    Relative Data, Service API
+  properties:
+  - type: x-openapi-spec
+    url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpipelines-post-openapi.md
 - name: Bitbucket - Get Repositories Username Repo Slug Pipelines Pipeline Uu
   x-api-slug: repositoriesusernamerepo-slugpipelinespipeline-uuid-get
   description: Get repositories username repo slug pipelines pipeline uu
@@ -1507,6 +1730,17 @@ apis:
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpipelines-config-get-postman.md
   - type: x-openapi-spec
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpipelines-config-get-openapi.md
+- name: Bitbucket - Update Repositories Username Repo Slug Pipelines Config
+  x-api-slug: repositoriesusernamerepo-slugpipelines-config-put
+  description: Update the pipelines configuration for a repository.
+  image: http://kinlane-productions.s3.amazonaws.com/screen-capture-api/19810-bitbucket.jpg
+  humanURL: http://bitbucket.org
+  baseURL: https://api.bitbucket.org//2.0
+  tags: Imports, Stack Network, Developers, Code, Technology, SaaS, Enterprise, Profiles,
+    Relative Data, Service API
+  properties:
+  - type: x-openapi-spec
+    url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpipelines-config-put-openapi.md
 - name: Bitbucket - Delete Repositories Username Repo Slug Pipelines Config Ssh Key
     Pair
   x-api-slug: repositoriesusernamerepo-slugpipelines-configsshkey-pair-delete
@@ -1536,6 +1770,19 @@ apis:
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpipelines-configsshkey-pair-get-postman.md
   - type: x-openapi-spec
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpipelines-configsshkey-pair-get-openapi.md
+- name: Bitbucket - Update Repositories Username Repo Slug Pipelines Config Ssh Key
+    Pair
+  x-api-slug: repositoriesusernamerepo-slugpipelines-configsshkey-pair-put
+  description: Create or update the repository SSH key pair. The private key will
+    be set as a default SSH identity in your build container.
+  image: http://kinlane-productions.s3.amazonaws.com/screen-capture-api/19810-bitbucket.jpg
+  humanURL: http://bitbucket.org
+  baseURL: https://api.bitbucket.org//2.0
+  tags: Imports, Stack Network, Developers, Code, Technology, SaaS, Enterprise, Profiles,
+    Relative Data, Service API
+  properties:
+  - type: x-openapi-spec
+    url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpipelines-configsshkey-pair-put-openapi.md
 - name: Bitbucket - Get Repositories Username Repo Slug Pipelines Config Ssh Known
     Hosts
   x-api-slug: repositoriesusernamerepo-slugpipelines-configsshknown-hosts-get
@@ -1550,6 +1797,18 @@ apis:
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpipelines-configsshknown-hosts-get-postman.md
   - type: x-openapi-spec
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpipelines-configsshknown-hosts-get-openapi.md
+- name: Bitbucket - Add Repositories Username Repo Slug Pipelines Config Ssh Known
+    Hosts
+  x-api-slug: repositoriesusernamerepo-slugpipelines-configsshknown-hosts-post
+  description: Post repositories username repo slug pipelines config ssh known hosts
+  image: http://kinlane-productions.s3.amazonaws.com/screen-capture-api/19810-bitbucket.jpg
+  humanURL: http://bitbucket.org
+  baseURL: https://api.bitbucket.org//2.0
+  tags: Imports, Stack Network, Developers, Code, Technology, SaaS, Enterprise, Profiles,
+    Relative Data, Service API
+  properties:
+  - type: x-openapi-spec
+    url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpipelines-configsshknown-hosts-post-openapi.md
 - name: Bitbucket - Delete Repositories Username Repo Slug Pipelines Config Ssh Known
     Hosts Known Host Uu
   x-api-slug: repositoriesusernamerepo-slugpipelines-configsshknown-hostsknown-host-uuid-delete
@@ -1580,6 +1839,19 @@ apis:
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpipelines-configsshknown-hostsknown-host-uuid-get-postman.md
   - type: x-openapi-spec
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpipelines-configsshknown-hostsknown-host-uuid-get-openapi.md
+- name: Bitbucket - Update Repositories Username Repo Slug Pipelines Config Ssh Known
+    Hosts Known Host Uu
+  x-api-slug: repositoriesusernamerepo-slugpipelines-configsshknown-hostsknown-host-uuid-put
+  description: Put repositories username repo slug pipelines config ssh known hosts
+    known host uu
+  image: http://kinlane-productions.s3.amazonaws.com/screen-capture-api/19810-bitbucket.jpg
+  humanURL: http://bitbucket.org
+  baseURL: https://api.bitbucket.org//2.0
+  tags: Imports, Stack Network, Developers, Code, Technology, SaaS, Enterprise, Profiles,
+    Relative Data, Service API
+  properties:
+  - type: x-openapi-spec
+    url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpipelines-configsshknown-hostsknown-host-uuid-put-openapi.md
 - name: Bitbucket - Get Repositories Username Repo Slug Pipelines Config Variables
   x-api-slug: repositoriesusernamerepo-slugpipelines-configvariables-get
   description: Get repositories username repo slug pipelines config variables
@@ -1593,6 +1865,17 @@ apis:
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpipelines-configvariables-get-postman.md
   - type: x-openapi-spec
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpipelines-configvariables-get-openapi.md
+- name: Bitbucket - Add Repositories Username Repo Slug Pipelines Config Variables
+  x-api-slug: repositoriesusernamerepo-slugpipelines-configvariables-post
+  description: Post repositories username repo slug pipelines config variables
+  image: http://kinlane-productions.s3.amazonaws.com/screen-capture-api/19810-bitbucket.jpg
+  humanURL: http://bitbucket.org
+  baseURL: https://api.bitbucket.org//2.0
+  tags: Imports, Stack Network, Developers, Code, Technology, SaaS, Enterprise, Profiles,
+    Relative Data, Service API
+  properties:
+  - type: x-openapi-spec
+    url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpipelines-configvariables-post-openapi.md
 - name: Bitbucket - Delete Repositories Username Repo Slug Pipelines Config Variables
     Variable Uu
   x-api-slug: repositoriesusernamerepo-slugpipelines-configvariablesvariable-uuid-delete
@@ -1623,6 +1906,19 @@ apis:
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpipelines-configvariablesvariable-uuid-get-postman.md
   - type: x-openapi-spec
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpipelines-configvariablesvariable-uuid-get-openapi.md
+- name: Bitbucket - Update Repositories Username Repo Slug Pipelines Config Variables
+    Variable Uu
+  x-api-slug: repositoriesusernamerepo-slugpipelines-configvariablesvariable-uuid-put
+  description: Put repositories username repo slug pipelines config variables variable
+    uu
+  image: http://kinlane-productions.s3.amazonaws.com/screen-capture-api/19810-bitbucket.jpg
+  humanURL: http://bitbucket.org
+  baseURL: https://api.bitbucket.org//2.0
+  tags: Imports, Stack Network, Developers, Code, Technology, SaaS, Enterprise, Profiles,
+    Relative Data, Service API
+  properties:
+  - type: x-openapi-spec
+    url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpipelines-configvariablesvariable-uuid-put-openapi.md
 - name: Bitbucket - Get Repositories Username Repo Slug Pullrequests
   x-api-slug: repositoriesusernamerepo-slugpullrequests-get
   description: |-
@@ -1657,6 +1953,17 @@ apis:
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpullrequests-parameters-postman.md
   - type: x-openapi-spec
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpullrequests-parameters-openapi.md
+- name: Bitbucket - Add Repositories Username Repo Slug Pullrequests
+  x-api-slug: repositoriesusernamerepo-slugpullrequests-post
+  description: Post repositories username repo slug pullrequests
+  image: http://kinlane-productions.s3.amazonaws.com/screen-capture-api/19810-bitbucket.jpg
+  humanURL: http://bitbucket.org
+  baseURL: https://api.bitbucket.org//2.0
+  tags: Imports, Stack Network, Developers, Code, Technology, SaaS, Enterprise, Profiles,
+    Relative Data, Service API
+  properties:
+  - type: x-openapi-spec
+    url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpullrequests-post-openapi.md
 - name: Bitbucket - Get Repositories Username Repo Slug Pullrequests Activity
   x-api-slug: repositoriesusernamerepo-slugpullrequestsactivity-get
   description: |-
@@ -1713,6 +2020,22 @@ apis:
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpullrequestspull-request-id-parameters-postman.md
   - type: x-openapi-spec
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpullrequestspull-request-id-parameters-openapi.md
+- name: Bitbucket - Update Repositories Username Repo Slug Pullrequests Pull Request
+  x-api-slug: repositoriesusernamerepo-slugpullrequestspull-request-id-put
+  description: |-
+    Mutates the specified pull request.
+
+    This can be used to change the pull request's branches or description.
+
+    Only open pull requests can be mutated.
+  image: http://kinlane-productions.s3.amazonaws.com/screen-capture-api/19810-bitbucket.jpg
+  humanURL: http://bitbucket.org
+  baseURL: https://api.bitbucket.org//2.0
+  tags: Imports, Stack Network, Developers, Code, Technology, SaaS, Enterprise, Profiles,
+    Relative Data, Service API
+  properties:
+  - type: x-openapi-spec
+    url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpullrequestspull-request-id-put-openapi.md
 - name: Bitbucket - Get Repositories Username Repo Slug Pullrequests Pull Request  Activity
   x-api-slug: repositoriesusernamerepo-slugpullrequestspull-request-idactivity-get
   description: |-
@@ -1943,6 +2266,17 @@ apis:
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpullrequestspull-request-idmerge-parameters-postman.md
   - type: x-openapi-spec
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpullrequestspull-request-idmerge-parameters-openapi.md
+- name: Bitbucket - Add Repositories Username Repo Slug Pullrequests Pull Request  Merge
+  x-api-slug: repositoriesusernamerepo-slugpullrequestspull-request-idmerge-post
+  description: Post repositories username repo slug pullrequests pull request  merge
+  image: http://kinlane-productions.s3.amazonaws.com/screen-capture-api/19810-bitbucket.jpg
+  humanURL: http://bitbucket.org
+  baseURL: https://api.bitbucket.org//2.0
+  tags: Imports, Stack Network, Developers, Code, Technology, SaaS, Enterprise, Profiles,
+    Relative Data, Service API
+  properties:
+  - type: x-openapi-spec
+    url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugpullrequestspull-request-idmerge-post-openapi.md
 - name: Bitbucket - Get Repositories Username Repo Slug Pullrequests Pull Request  Patch
   x-api-slug: repositoriesusernamerepo-slugpullrequestspull-request-idpatch-get
   description: Get repositories username repo slug pullrequests pull request  patch
@@ -2099,6 +2433,34 @@ apis:
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugrefstags-parameters-postman.md
   - type: x-openapi-spec
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugrefstags-parameters-openapi.md
+- name: Bitbucket - Add Repositories Username Repo Slug Refs Tags
+  x-api-slug: repositoriesusernamerepo-slugrefstags-post
+  description: |-
+    Creates a new tag in the specified repository.
+
+    The payload of the POST should consist of a JSON document that
+    contains the name of the tag and the target hash.
+
+    ```
+    {
+        "name" : "new tag name",
+        "target" : {
+            "hash" : "target commit hash",
+        }
+    }
+    ```
+
+    This endpoint does support using short hash prefixes for the commit
+    hash, but it may return a 400 response if the provided prefix is
+    ambiguous. Using a full commit hash is the preferred approach.
+  image: http://kinlane-productions.s3.amazonaws.com/screen-capture-api/19810-bitbucket.jpg
+  humanURL: http://bitbucket.org
+  baseURL: https://api.bitbucket.org//2.0
+  tags: Imports, Stack Network, Developers, Code, Technology, SaaS, Enterprise, Profiles,
+    Relative Data, Service API
+  properties:
+  - type: x-openapi-spec
+    url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/bitbucket/repositoriesusernamerepo-slugrefstags-post-openapi.md
 - name: Bitbucket - Get Repositories Username Repo Slug Refs Tags Name
   x-api-slug: repositoriesusernamerepo-slugrefstagsname-get
   description: Get repositories username repo slug refs tags name

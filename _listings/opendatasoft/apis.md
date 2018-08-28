@@ -9,8 +9,8 @@ image: http://kinlane-productions.s3.amazonaws.com/screen-capture-api/2716-opend
 x-kinRank: "7"
 x-alexaRank: "323884"
 tags: Slug
-created: "2018-08-26"
-modified: "2018-08-26"
+created: "2018-08-28"
+modified: "2018-08-28"
 url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/opendatasoft/apis.md
 specificationVersion: "0.14"
 apis:
@@ -21,7 +21,7 @@ apis:
   humanURL: http://opendatasoft.com
   baseURL: https://public.opendatasoft.com//api/v2
   tags: Data, Government, Technology, SaaS, Enterprise, Relative Data, General Data,
-    Service API, Relative StreamRank, Cities, Streams
+    Service API, Relative StreamRank, Streams, Cities
   properties:
   - type: x-postman-collection
     url: https://raw.githubusercontent.com/streamdata-gallery-topics/slug/master/_listings/opendatasoft/pagesslug-get-postman.md
